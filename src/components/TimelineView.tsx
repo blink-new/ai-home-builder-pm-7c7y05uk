@@ -1,0 +1,336 @@
+import React, { useState } from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { 
+  Calendar,
+  Clock,
+  AlertTriangle,
+  CheckCircle2,
+  Users,
+  Home,
+  ArrowRight,
+  Plus
+} from 'lucide-react'
+
+const TimelineView = () => {
+  const [selectedProject, setSelectedProject] = useState('all')
+
+  const projects = [
+    {
+      id: 'malibu-villa',
+      name: 'Luxury Villa - Malibu',
+      status: 'active',
+      progress: 25
+    },
+    {
+      id: 'beverly-townhouse',
+      name: 'Modern Townhouse - Beverly Hills',
+      status: 'active',
+      progress: 45
+    },
+    {
+      id: 'santa-monica-eco',
+      name: 'Eco Home - Santa Monica',
+      status: 'planning',
+      progress: 10
+    }
+  ]
+
+  const timelineEvents = [
+    {
+      id: 1,
+      project: 'Luxury Villa - Malibu',
+      projectId: 'malibu-villa',
+      phase: 'Foundation',
+      task: 'Foundation Pour Complete',
+      date: '2024-01-15',
+      status: 'completed',
+      team: 'Foundation Crew',
+      duration: '3 days',
+      dependencies: []
+    },
+    {
+      id: 2,
+      project: 'Luxury Villa - Malibu',
+      projectId: 'malibu-villa',
+      phase: 'Foundation',
+      task: 'Utility Rough-in',
+      date: '2024-01-18',
+      status: 'in-progress',
+      team: 'Plumbing & Electrical',
+      duration: '5 days',
+      dependencies: ['Foundation Pour']
+    },
+    {
+      id: 3,
+      project: 'Modern Townhouse - Beverly Hills',
+      projectId: 'beverly-townhouse',
+      phase: 'Framing',
+      task: 'First Floor Framing',
+      date: '2024-01-20',
+      status: 'scheduled',
+      team: 'Framing Crew',
+      duration: '7 days',
+      dependencies: ['Foundation Complete']
+    },
+    {
+      id: 4,
+      project: 'Modern Townhouse - Beverly Hills',
+      projectId: 'beverly-townhouse',
+      phase: 'Permits',
+      task: 'Electrical Permit Approval',
+      date: '2024-01-22',
+      status: 'delayed',
+      team: 'Permit Office',
+      duration: '2 weeks',
+      dependencies: []
+    },
+    {
+      id: 5,
+      project: 'Eco Home - Santa Monica',
+      projectId: 'santa-monica-eco',
+      phase: 'Planning',
+      task: 'Final Design Review',
+      date: '2024-01-25',
+      status: 'scheduled',
+      team: 'Design Team',
+      duration: '1 week',
+      dependencies: []
+    },
+    {
+      id: 6,
+      project: 'Luxury Villa - Malibu',
+      projectId: 'malibu-villa',
+      phase: 'Framing',
+      task: 'Wall Framing Start',
+      date: '2024-01-28',
+      status: 'upcoming',
+      team: 'Framing Crew',
+      duration: '10 days',
+      dependencies: ['Utility Rough-in']
+    }
+  ]
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed': return 'bg-green-100 text-green-800'
+      case 'in-progress': return 'bg-blue-100 text-blue-800'
+      case 'scheduled': return 'bg-purple-100 text-purple-800'
+      case 'delayed': return 'bg-red-100 text-red-800'
+      case 'upcoming': return 'bg-gray-100 text-gray-800'
+      default: return 'bg-gray-100 text-gray-800'
+    }
+  }
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'completed': return <CheckCircle2 className="w-4 h-4 text-green-600" />
+      case 'in-progress': return <Clock className="w-4 h-4 text-blue-600" />
+      case 'delayed': return <AlertTriangle className="w-4 h-4 text-red-600" />
+      default: return <Calendar className="w-4 h-4 text-gray-600" />
+    }
+  }
+
+  const filteredEvents = selectedProject === 'all' 
+    ? timelineEvents 
+    : timelineEvents.filter(event => event.projectId === selectedProject)
+
+  const upcomingMilestones = [
+    {
+      project: 'Malibu Villa',
+      milestone: 'Framing Complete',
+      date: '2024-02-15',
+      daysLeft: 12
+    },
+    {
+      project: 'Beverly Hills Townhouse',
+      milestone: 'Roof Installation',
+      date: '2024-02-28',
+      daysLeft: 25
+    },
+    {
+      project: 'Santa Monica Eco',
+      milestone: 'Construction Start',
+      date: '2024-03-10',
+      daysLeft: 36
+    }
+  ]
+
+  return (
+    <div className="space-y-6">
+      {/* Page Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Project Timeline</h1>
+          <p className="text-gray-600 mt-1">Track progress and manage schedules across all projects</p>
+        </div>
+        <Button>
+          <Plus className="w-4 h-4 mr-2" />
+          Add Milestone
+        </Button>
+      </div>
+
+      {/* Project Filter */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Filter by Project</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Tabs value={selectedProject} onValueChange={setSelectedProject}>
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="all">All Projects</TabsTrigger>
+              <TabsTrigger value="malibu-villa">Malibu Villa</TabsTrigger>
+              <TabsTrigger value="beverly-townhouse">Beverly Hills</TabsTrigger>
+              <TabsTrigger value="santa-monica-eco">Santa Monica</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Timeline Events */}
+        <div className="lg:col-span-2">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Calendar className="w-5 h-5 mr-2 text-blue-600" />
+                Timeline Events
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {filteredEvents.map((event, index) => (
+                  <div key={event.id} className="relative">
+                    {/* Timeline line */}
+                    {index < filteredEvents.length - 1 && (
+                      <div className="absolute left-6 top-12 w-0.5 h-16 bg-gray-200"></div>
+                    )}
+                    
+                    <div className="flex items-start space-x-4">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center">
+                        {getStatusIcon(event.status)}
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-sm font-semibold text-gray-900">{event.task}</h3>
+                          <Badge className={getStatusColor(event.status)} variant="secondary">
+                            {event.status}
+                          </Badge>
+                        </div>
+                        
+                        <div className="text-sm text-gray-600 space-y-1">
+                          <div className="flex items-center">
+                            <Home className="w-4 h-4 mr-2 text-gray-400" />
+                            {event.project} • {event.phase}
+                          </div>
+                          <div className="flex items-center">
+                            <Calendar className="w-4 h-4 mr-2 text-gray-400" />
+                            {new Date(event.date).toLocaleDateString()} • {event.duration}
+                          </div>
+                          <div className="flex items-center">
+                            <Users className="w-4 h-4 mr-2 text-gray-400" />
+                            {event.team}
+                          </div>
+                          {event.dependencies.length > 0 && (
+                            <div className="flex items-center">
+                              <ArrowRight className="w-4 h-4 mr-2 text-gray-400" />
+                              Depends on: {event.dependencies.join(', ')}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Sidebar */}
+        <div className="space-y-6">
+          {/* Upcoming Milestones */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Clock className="w-5 h-5 mr-2 text-purple-600" />
+                Upcoming Milestones
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {upcomingMilestones.map((milestone, index) => (
+                  <div key={index} className="border-l-4 border-purple-200 pl-4">
+                    <h4 className="font-medium text-gray-900">{milestone.milestone}</h4>
+                    <p className="text-sm text-gray-600">{milestone.project}</p>
+                    <div className="flex items-center justify-between mt-2">
+                      <span className="text-sm text-gray-500">{milestone.date}</span>
+                      <Badge variant="outline" className="text-xs">
+                        {milestone.daysLeft} days
+                      </Badge>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Critical Path */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <AlertTriangle className="w-5 h-5 mr-2 text-red-600" />
+                Critical Path Items
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                  <h4 className="font-medium text-red-900">Electrical Permit Delay</h4>
+                  <p className="text-sm text-red-700">Beverly Hills project delayed by 2 weeks</p>
+                  <Button size="sm" variant="outline" className="mt-2">
+                    View Details
+                  </Button>
+                </div>
+                
+                <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <h4 className="font-medium text-yellow-900">Material Delivery</h4>
+                  <p className="text-sm text-yellow-700">Steel beams for Malibu project</p>
+                  <Button size="sm" variant="outline" className="mt-2">
+                    Track Shipment
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Quick Actions */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Quick Actions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <Button variant="outline" className="w-full justify-start">
+                <Calendar className="w-4 h-4 mr-2" />
+                Schedule Meeting
+              </Button>
+              <Button variant="outline" className="w-full justify-start">
+                <AlertTriangle className="w-4 h-4 mr-2" />
+                Report Issue
+              </Button>
+              <Button variant="outline" className="w-full justify-start">
+                <Users className="w-4 h-4 mr-2" />
+                Update Team
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default TimelineView
