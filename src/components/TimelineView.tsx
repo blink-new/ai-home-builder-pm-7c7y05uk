@@ -115,21 +115,21 @@ const TimelineView = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 text-green-800'
-      case 'in-progress': return 'bg-blue-100 text-blue-800'
-      case 'scheduled': return 'bg-purple-100 text-purple-800'
-      case 'delayed': return 'bg-red-100 text-red-800'
-      case 'upcoming': return 'bg-gray-100 text-gray-800'
-      default: return 'bg-gray-100 text-gray-800'
+      case 'completed': return 'bg-green-500/20 text-green-400 border-green-500/30'
+      case 'in-progress': return 'bg-blue-500/20 text-blue-400 border-blue-500/30'
+      case 'scheduled': return 'bg-purple-500/20 text-purple-400 border-purple-500/30'
+      case 'delayed': return 'bg-red-500/20 text-red-400 border-red-500/30'
+      case 'upcoming': return 'bg-gray-500/20 text-gray-400 border-gray-500/30'
+      default: return 'bg-gray-500/20 text-gray-400 border-gray-500/30'
     }
   }
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'completed': return <CheckCircle2 className="w-4 h-4 text-green-600" />
-      case 'in-progress': return <Clock className="w-4 h-4 text-blue-600" />
-      case 'delayed': return <AlertTriangle className="w-4 h-4 text-red-600" />
-      default: return <Calendar className="w-4 h-4 text-gray-600" />
+      case 'completed': return <CheckCircle2 className="w-4 h-4 text-green-400" />
+      case 'in-progress': return <Clock className="w-4 h-4 text-blue-400" />
+      case 'delayed': return <AlertTriangle className="w-4 h-4 text-red-400" />
+      default: return <Calendar className="w-4 h-4 text-gray-400" />
     }
   }
 
@@ -163,27 +163,27 @@ const TimelineView = () => {
       {/* Page Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Project Timeline</h1>
-          <p className="text-gray-600 mt-1">Track progress and manage schedules across all projects</p>
+          <h1 className="text-3xl font-bold claude-text">Project Timeline</h1>
+          <p className="claude-text-muted mt-1">Track progress and manage schedules across all projects</p>
         </div>
-        <Button>
+        <Button className="claude-accent">
           <Plus className="w-4 h-4 mr-2" />
           Add Milestone
         </Button>
       </div>
 
       {/* Project Filter */}
-      <Card>
+      <Card className="claude-surface claude-border">
         <CardHeader>
-          <CardTitle className="text-lg">Filter by Project</CardTitle>
+          <CardTitle className="text-lg claude-text">Filter by Project</CardTitle>
         </CardHeader>
         <CardContent>
           <Tabs value={selectedProject} onValueChange={setSelectedProject}>
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="all">All Projects</TabsTrigger>
-              <TabsTrigger value="malibu-villa">Malibu Villa</TabsTrigger>
-              <TabsTrigger value="beverly-townhouse">Beverly Hills</TabsTrigger>
-              <TabsTrigger value="santa-monica-eco">Santa Monica</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-4 claude-surface">
+              <TabsTrigger value="all" className="claude-surface-hover data-[state=active]:claude-accent data-[state=active]:text-background">All Projects</TabsTrigger>
+              <TabsTrigger value="malibu-villa" className="claude-surface-hover data-[state=active]:claude-accent data-[state=active]:text-background">Malibu Villa</TabsTrigger>
+              <TabsTrigger value="beverly-townhouse" className="claude-surface-hover data-[state=active]:claude-accent data-[state=active]:text-background">Beverly Hills</TabsTrigger>
+              <TabsTrigger value="santa-monica-eco" className="claude-surface-hover data-[state=active]:claude-accent data-[state=active]:text-background">Santa Monica</TabsTrigger>
             </TabsList>
           </Tabs>
         </CardContent>
@@ -192,10 +192,10 @@ const TimelineView = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Timeline Events */}
         <div className="lg:col-span-2">
-          <Card>
+          <Card className="claude-surface claude-border">
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Calendar className="w-5 h-5 mr-2 text-blue-600" />
+              <CardTitle className="flex items-center claude-text">
+                <Calendar className="w-5 h-5 mr-2 text-blue-400" />
                 Timeline Events
               </CardTitle>
             </CardHeader>
@@ -205,38 +205,38 @@ const TimelineView = () => {
                   <div key={event.id} className="relative">
                     {/* Timeline line */}
                     {index < filteredEvents.length - 1 && (
-                      <div className="absolute left-6 top-12 w-0.5 h-16 bg-gray-200"></div>
+                      <div className="absolute left-6 top-12 w-0.5 h-16 claude-border"></div>
                     )}
                     
                     <div className="flex items-start space-x-4">
-                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full claude-surface claude-border flex items-center justify-center">
                         {getStatusIcon(event.status)}
                       </div>
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-sm font-semibold text-gray-900">{event.task}</h3>
+                          <h3 className="text-sm font-semibold claude-text">{event.task}</h3>
                           <Badge className={getStatusColor(event.status)} variant="secondary">
                             {event.status}
                           </Badge>
                         </div>
                         
-                        <div className="text-sm text-gray-600 space-y-1">
+                        <div className="text-sm claude-text-muted space-y-1">
                           <div className="flex items-center">
-                            <Home className="w-4 h-4 mr-2 text-gray-400" />
+                            <Home className="w-4 h-4 mr-2 claude-text-muted" />
                             {event.project} • {event.phase}
                           </div>
                           <div className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-2 text-gray-400" />
+                            <Calendar className="w-4 h-4 mr-2 claude-text-muted" />
                             {new Date(event.date).toLocaleDateString()} • {event.duration}
                           </div>
                           <div className="flex items-center">
-                            <Users className="w-4 h-4 mr-2 text-gray-400" />
+                            <Users className="w-4 h-4 mr-2 claude-text-muted" />
                             {event.team}
                           </div>
                           {event.dependencies.length > 0 && (
                             <div className="flex items-center">
-                              <ArrowRight className="w-4 h-4 mr-2 text-gray-400" />
+                              <ArrowRight className="w-4 h-4 mr-2 claude-text-muted" />
                               Depends on: {event.dependencies.join(', ')}
                             </div>
                           )}
@@ -253,22 +253,22 @@ const TimelineView = () => {
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Upcoming Milestones */}
-          <Card>
+          <Card className="claude-surface claude-border">
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Clock className="w-5 h-5 mr-2 text-purple-600" />
+              <CardTitle className="flex items-center claude-text">
+                <Clock className="w-5 h-5 mr-2 text-purple-400" />
                 Upcoming Milestones
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {upcomingMilestones.map((milestone, index) => (
-                  <div key={index} className="border-l-4 border-purple-200 pl-4">
-                    <h4 className="font-medium text-gray-900">{milestone.milestone}</h4>
-                    <p className="text-sm text-gray-600">{milestone.project}</p>
+                  <div key={index} className="border-l-4 border-purple-500/30 pl-4">
+                    <h4 className="font-medium claude-text">{milestone.milestone}</h4>
+                    <p className="text-sm claude-text-muted">{milestone.project}</p>
                     <div className="flex items-center justify-between mt-2">
-                      <span className="text-sm text-gray-500">{milestone.date}</span>
-                      <Badge variant="outline" className="text-xs">
+                      <span className="text-sm claude-text-muted">{milestone.date}</span>
+                      <Badge variant="outline" className="text-xs claude-border claude-text-muted">
                         {milestone.daysLeft} days
                       </Badge>
                     </div>
@@ -279,27 +279,27 @@ const TimelineView = () => {
           </Card>
 
           {/* Critical Path */}
-          <Card>
+          <Card className="claude-surface claude-border">
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <AlertTriangle className="w-5 h-5 mr-2 text-red-600" />
+              <CardTitle className="flex items-center claude-text">
+                <AlertTriangle className="w-5 h-5 mr-2 text-red-400" />
                 Critical Path Items
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                  <h4 className="font-medium text-red-900">Electrical Permit Delay</h4>
-                  <p className="text-sm text-red-700">Beverly Hills project delayed by 2 weeks</p>
-                  <Button size="sm" variant="outline" className="mt-2">
+                <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                  <h4 className="font-medium text-red-400">Electrical Permit Delay</h4>
+                  <p className="text-sm text-red-300">Beverly Hills project delayed by 2 weeks</p>
+                  <Button size="sm" variant="outline" className="mt-2 claude-border claude-text">
                     View Details
                   </Button>
                 </div>
                 
-                <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                  <h4 className="font-medium text-yellow-900">Material Delivery</h4>
-                  <p className="text-sm text-yellow-700">Steel beams for Malibu project</p>
-                  <Button size="sm" variant="outline" className="mt-2">
+                <div className="p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                  <h4 className="font-medium text-yellow-400">Material Delivery</h4>
+                  <p className="text-sm text-yellow-300">Steel beams for Malibu project</p>
+                  <Button size="sm" variant="outline" className="mt-2 claude-border claude-text">
                     Track Shipment
                   </Button>
                 </div>
@@ -308,20 +308,20 @@ const TimelineView = () => {
           </Card>
 
           {/* Quick Actions */}
-          <Card>
+          <Card className="claude-surface claude-border">
             <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
+              <CardTitle className="claude-text">Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <Button variant="outline" className="w-full justify-start">
+              <Button variant="outline" className="w-full justify-start claude-surface-hover claude-border claude-text">
                 <Calendar className="w-4 h-4 mr-2" />
                 Schedule Meeting
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button variant="outline" className="w-full justify-start claude-surface-hover claude-border claude-text">
                 <AlertTriangle className="w-4 h-4 mr-2" />
                 Report Issue
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button variant="outline" className="w-full justify-start claude-surface-hover claude-border claude-text">
                 <Users className="w-4 h-4 mr-2" />
                 Update Team
               </Button>

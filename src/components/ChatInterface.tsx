@@ -16,7 +16,8 @@ import {
   AlertTriangle,
   CheckCircle2,
   Clock,
-  Home
+  Home,
+  Sparkles
 } from 'lucide-react'
 
 interface Message {
@@ -32,7 +33,7 @@ const ChatInterface = () => {
     {
       id: '1',
       type: 'ai',
-      content: "Hello! I'm your AI construction expert. I can help you manage your custom home building projects through natural conversation. What would you like to work on today?",
+      content: "Hello! I'm Claude, your AI construction expert. I can help you manage your custom home building projects through natural conversation. What would you like to work on today?",
       timestamp: new Date(),
       artifacts: []
     }
@@ -152,30 +153,30 @@ const ChatInterface = () => {
     switch (artifact.type) {
       case 'project_summary':
         return (
-          <Card className="mt-3 bg-blue-50 border-blue-200">
+          <Card className="mt-3 claude-surface claude-border">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm flex items-center">
-                <Home className="w-4 h-4 mr-2 text-blue-600" />
+              <CardTitle className="text-sm flex items-center claude-text">
+                <Home className="w-4 h-4 mr-2 text-blue-400" />
                 Project Summary
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-0">
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div className="flex justify-between">
-                  <span>Total Projects:</span>
-                  <Badge variant="secondary">{artifact.data.totalProjects}</Badge>
+                  <span className="claude-text-muted">Total Projects:</span>
+                  <Badge variant="secondary" className="bg-blue-500/20 text-blue-400 border-blue-500/30">{artifact.data.totalProjects}</Badge>
                 </div>
                 <div className="flex justify-between">
-                  <span>On Schedule:</span>
-                  <Badge className="bg-green-100 text-green-800">{artifact.data.onSchedule}</Badge>
+                  <span className="claude-text-muted">On Schedule:</span>
+                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{artifact.data.onSchedule}</Badge>
                 </div>
                 <div className="flex justify-between">
-                  <span>Delayed:</span>
-                  <Badge variant="destructive">{artifact.data.delayed}</Badge>
+                  <span className="claude-text-muted">Delayed:</span>
+                  <Badge variant="destructive" className="bg-red-500/20 text-red-400 border-red-500/30">{artifact.data.delayed}</Badge>
                 </div>
                 <div className="flex justify-between">
-                  <span>Planning:</span>
-                  <Badge variant="outline">{artifact.data.planning}</Badge>
+                  <span className="claude-text-muted">Planning:</span>
+                  <Badge variant="outline" className="claude-border claude-text-muted">{artifact.data.planning}</Badge>
                 </div>
               </div>
             </CardContent>
@@ -184,30 +185,30 @@ const ChatInterface = () => {
       
       case 'budget_alert':
         return (
-          <Card className="mt-3 bg-amber-50 border-amber-200">
+          <Card className="mt-3 claude-surface claude-border">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm flex items-center">
-                <DollarSign className="w-4 h-4 mr-2 text-amber-600" />
+              <CardTitle className="text-sm flex items-center claude-text">
+                <DollarSign className="w-4 h-4 mr-2 text-amber-400" />
                 Budget Overview
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-0">
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span>Total Budget:</span>
-                  <span className="font-medium">{artifact.data.totalBudget}</span>
+                  <span className="claude-text-muted">Total Budget:</span>
+                  <span className="font-medium claude-text">{artifact.data.totalBudget}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Spent:</span>
-                  <span>{artifact.data.spent}</span>
+                  <span className="claude-text-muted">Spent:</span>
+                  <span className="claude-text">{artifact.data.spent}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Remaining:</span>
-                  <span className="text-green-600 font-medium">{artifact.data.remaining}</span>
+                  <span className="claude-text-muted">Remaining:</span>
+                  <span className="text-green-400 font-medium">{artifact.data.remaining}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Variance:</span>
-                  <Badge className="bg-green-100 text-green-800">{artifact.data.variance}</Badge>
+                  <span className="claude-text-muted">Variance:</span>
+                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{artifact.data.variance}</Badge>
                 </div>
               </div>
             </CardContent>
@@ -216,20 +217,20 @@ const ChatInterface = () => {
       
       case 'timeline_update':
         return (
-          <Card className="mt-3 bg-orange-50 border-orange-200">
+          <Card className="mt-3 claude-surface claude-border">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm flex items-center">
-                <Clock className="w-4 h-4 mr-2 text-orange-600" />
+              <CardTitle className="text-sm flex items-center claude-text">
+                <Clock className="w-4 h-4 mr-2 text-orange-400" />
                 Timeline Update Required
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-0">
               <div className="space-y-2 text-sm">
-                <div><strong>Project:</strong> {artifact.data.project}</div>
-                <div><strong>Original Date:</strong> {artifact.data.originalDate}</div>
-                <div><strong>New Date:</strong> {artifact.data.newDate}</div>
-                <div><strong>Reason:</strong> {artifact.data.reason}</div>
-                <Button size="sm" className="mt-2">Approve Changes</Button>
+                <div className="claude-text"><strong>Project:</strong> {artifact.data.project}</div>
+                <div className="claude-text"><strong>Original Date:</strong> {artifact.data.originalDate}</div>
+                <div className="claude-text"><strong>New Date:</strong> {artifact.data.newDate}</div>
+                <div className="claude-text"><strong>Reason:</strong> {artifact.data.reason}</div>
+                <Button size="sm" className="mt-2 claude-accent">Approve Changes</Button>
               </div>
             </CardContent>
           </Card>
@@ -237,24 +238,24 @@ const ChatInterface = () => {
       
       case 'team_status':
         return (
-          <Card className="mt-3 bg-purple-50 border-purple-200">
+          <Card className="mt-3 claude-surface claude-border">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm flex items-center">
-                <Users className="w-4 h-4 mr-2 text-purple-600" />
+              <CardTitle className="text-sm flex items-center claude-text">
+                <Users className="w-4 h-4 mr-2 text-purple-400" />
                 Team Status
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-0">
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span>Total Members:</span>
-                  <Badge variant="secondary">{artifact.data.totalMembers}</Badge>
+                  <span className="claude-text-muted">Total Members:</span>
+                  <Badge variant="secondary" className="bg-purple-500/20 text-purple-400 border-purple-500/30">{artifact.data.totalMembers}</Badge>
                 </div>
                 <div className="flex justify-between">
-                  <span>Active Contractors:</span>
-                  <Badge className="bg-green-100 text-green-800">{artifact.data.activeContractors}</Badge>
+                  <span className="claude-text-muted">Active Contractors:</span>
+                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{artifact.data.activeContractors}</Badge>
                 </div>
-                <div className="mt-2">
+                <div className="mt-2 claude-text">
                   <strong>Upcoming:</strong> {artifact.data.upcomingSchedule}
                 </div>
               </div>
@@ -268,22 +269,22 @@ const ChatInterface = () => {
   }
 
   return (
-    <div className="h-full flex flex-col bg-white">
+    <div className="h-full flex flex-col bg-background">
       {/* Chat Header */}
-      <div className="border-b border-gray-200 p-4">
+      <div className="claude-border border-b p-4 claude-surface">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-              <Bot className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 claude-accent rounded-full flex items-center justify-center">
+              <Sparkles className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="font-semibold text-gray-900">AI Construction Expert</h2>
-              <p className="text-sm text-gray-500">Ready to help with your projects</p>
+              <h2 className="font-semibold claude-text">Claude Construction Expert</h2>
+              <p className="text-sm claude-text-muted">Ready to help with your projects</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            <Badge variant="secondary" className="bg-green-100 text-green-800">
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+            <Badge variant="secondary" className="bg-green-500/20 text-green-400 border-green-500/30">
+              <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
               Online
             </Badge>
           </div>
@@ -291,31 +292,31 @@ const ChatInterface = () => {
       </div>
 
       {/* Messages Area */}
-      <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
-        <div className="space-y-4">
+      <ScrollArea className="flex-1 p-4 claude-scrollbar" ref={scrollAreaRef}>
+        <div className="space-y-6">
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+              className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} message-fade-in`}
             >
               <div className={`flex max-w-[80%] ${message.type === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                  message.type === 'user' ? 'bg-blue-600 ml-3' : 'bg-gray-200 mr-3'
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  message.type === 'user' ? 'claude-accent ml-3' : 'claude-surface mr-3'
                 }`}>
                   {message.type === 'user' ? (
-                    <User className="w-4 h-4 text-white" />
+                    <User className="w-4 h-4" />
                   ) : (
-                    <Bot className="w-4 h-4 text-gray-600" />
+                    <Sparkles className="w-4 h-4 text-orange-400" />
                   )}
                 </div>
-                <div className={`rounded-lg p-3 ${
+                <div className={`rounded-2xl px-4 py-3 ${
                   message.type === 'user' 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-100 text-gray-900'
+                    ? 'claude-accent text-background' 
+                    : 'claude-surface claude-text'
                 }`}>
-                  <p className="text-sm">{message.content}</p>
-                  <p className={`text-xs mt-1 ${
-                    message.type === 'user' ? 'text-blue-100' : 'text-gray-500'
+                  <p className="text-sm leading-relaxed">{message.content}</p>
+                  <p className={`text-xs mt-2 ${
+                    message.type === 'user' ? 'text-background/70' : 'claude-text-muted'
                   }`}>
                     {message.timestamp.toLocaleTimeString()}
                   </p>
@@ -333,16 +334,16 @@ const ChatInterface = () => {
           
           {/* Typing indicator */}
           {isTyping && (
-            <div className="flex justify-start">
+            <div className="flex justify-start message-fade-in">
               <div className="flex">
-                <div className="w-8 h-8 rounded-full bg-gray-200 mr-3 flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-gray-600" />
+                <div className="w-8 h-8 rounded-full claude-surface mr-3 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-orange-400" />
                 </div>
-                <div className="bg-gray-100 rounded-lg p-3">
+                <div className="claude-surface rounded-2xl px-4 py-3">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-orange-400 rounded-full typing-dot"></div>
+                    <div className="w-2 h-2 bg-orange-400 rounded-full typing-dot"></div>
+                    <div className="w-2 h-2 bg-orange-400 rounded-full typing-dot"></div>
                   </div>
                 </div>
               </div>
@@ -352,9 +353,9 @@ const ChatInterface = () => {
       </ScrollArea>
 
       {/* Input Area */}
-      <div className="border-t border-gray-200 p-4">
-        <div className="flex items-center space-x-2">
-          <Button variant="outline" size="icon">
+      <div className="claude-border border-t p-4 claude-surface">
+        <div className="flex items-center space-x-3">
+          <Button variant="ghost" size="icon" className="claude-surface-hover">
             <Paperclip className="w-4 h-4" />
           </Button>
           <div className="flex-1 relative">
@@ -364,16 +365,16 @@ const ChatInterface = () => {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Ask me about your projects, budget, timeline, or team..."
-              className="pr-20"
+              className="pr-20 claude-surface claude-border claude-text placeholder:claude-text-muted"
             />
             <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
-              <Button variant="ghost" size="icon" className="h-8 w-8">
+              <Button variant="ghost" size="icon" className="h-8 w-8 claude-surface-hover">
                 <Mic className="w-4 h-4" />
               </Button>
               <Button 
                 onClick={handleSendMessage}
                 size="icon" 
-                className="h-8 w-8"
+                className="h-8 w-8 claude-accent"
                 disabled={!inputValue.trim()}
               >
                 <Send className="w-4 h-4" />
@@ -387,6 +388,7 @@ const ChatInterface = () => {
           <Button 
             variant="outline" 
             size="sm"
+            className="claude-surface-hover claude-border claude-text"
             onClick={() => setInputValue("What's the status of my projects?")}
           >
             Project Status
@@ -394,6 +396,7 @@ const ChatInterface = () => {
           <Button 
             variant="outline" 
             size="sm"
+            className="claude-surface-hover claude-border claude-text"
             onClick={() => setInputValue("Show me the budget overview")}
           >
             Budget Overview
@@ -401,6 +404,7 @@ const ChatInterface = () => {
           <Button 
             variant="outline" 
             size="sm"
+            className="claude-surface-hover claude-border claude-text"
             onClick={() => setInputValue("Any timeline updates needed?")}
           >
             Timeline Check
@@ -408,6 +412,7 @@ const ChatInterface = () => {
           <Button 
             variant="outline" 
             size="sm"
+            className="claude-surface-hover claude-border claude-text"
             onClick={() => setInputValue("How is my team doing?")}
           >
             Team Status
